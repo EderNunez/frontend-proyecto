@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>peticiones</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header class="bg-dark text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <img src="../img/logo.webp" alt="" width="50" height="50" class="me-2 rounded-circle" />
+        <h4 class="mb-0">WORSHBY</h4>
+      </div>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold fs-5" href="../index.html"
+            onmouseover="this.classList.replace('text-white', 'text-warning')"
+            onmouseout="this.classList.replace('text-warning', 'text-white')">INICIO</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold fs-5" href="../html/videos.html"
+            onmouseover="this.classList.replace('text-white', 'text-warning')"
+            onmouseout="this.classList.replace('text-warning', 'text-white')">VIDEOS</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold fs-5" href="#">DONACIONES</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold fs-5" href="../html/ubicacion.html"
+            onmouseover="this.classList.replace('text-white', 'text-warning')"
+            onmouseout="this.classList.replace('text-warning', 'text-white')">UBICACIÓN</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold fs-5" id="peticiones-link" href="../html/peticiones.html"
+            onmouseover="this.classList.replace('text-white', 'text-warning')"
+            onmouseout="this.classList.replace('text-warning', 'text-white')">PETICIONES</a>
+        </li>
+      </ul>
+      <div class="buttons" id="name-user"></div>
+    </div>
+  </header>
+  <main class="container mt-4">
+    <form class="p-4 border rounded bg-light">
+      <h2 class="text-center mb-3">FORMULARIO DE DONACIONES</h2>
+      <p class="text-center">
+        Gracias por considerar hacer una donación a nuestra organización. Su
+        apoyo es fundamental para que podamos seguir trabajando en favor de la
+        comunidad.
+      </p>
+
+      <div class="mb-3">
+        <label for="congregacion" class="form-label">Seleccione la congregación</label>
+        <select name="congregacion" id="congregacion" class="form-select">
+          <option value="">Escoja la congregación</option>
+          <option value="Iglesia Presbiteriana de Colombia">
+            Iglesia Presbiteriana de Colombia
+          </option>
+          <option value="Iglesia Presbiteriana de Bogotá">
+            Iglesia Presbiteriana de Bogotá
+          </option>
+          <option value="Iglesia Presbiteriana de Medellin">
+            Iglesia Presbiteriana de Medellin
+          </option>
+          <option value="Iglesia Presbiteriana de Cali">
+            Iglesia Presbiteriana de Cali
+          </option>
+          <option value="Iglesia Presbiteriana de Barranquilla">
+            Iglesia Presbiteriana de Barranquilla
+          </option>
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" id="nombre" class="form-control" placeholder="Ingrese su nombre" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input type="text" id="apellido" class="form-control" placeholder="Ingrese su apellido" />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="Ingrese su email" />
+      </div>
+
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="tel" id="telefono" class="form-control" placeholder="Ingrese su teléfono" />
+      </div>
+
+      <div class="mb-3">
+        <label for="tipo_donacion" class="form-label">Tipo de donación</label>
+        <select id="tipo_donacion" class="form-select">
+          <option value="">Seleccione el tipo de donación</option>
+          <option value="Monetario">Monetario</option>
+          <option value="Material">Material</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="monto" class="form-label">Monto</label>
+        <input type="number" id="monto" class="form-control" placeholder="Ingrese el monto" />
+      </div>
+
+      <div class="mb-3">
+        <label for="Idetificacion" class="form-label">Tipo de documento</label>
+        <select id="Idetificacion" class="form-select">
+          <option value="">Seleccione su tipo de documento</option>
+          <option value="CC">Cédula de ciudadanía</option>
+          <option value="CE">Cédula de extranjería</option>
+          <option value="NIT">NIT</option>
+          <option value="Pasaporte">Pasaporte</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="documento" class="form-label">Documento</label>
+        <input type="text" id="documento" class="form-control" placeholder="Ingrese su documento" />
+      </div>
+
+      <div class="mb-3">
+        <label for="metodo-pago" class="form-label">Método de pago</label>
+        <select id="metodo-pago" class="form-select">
+          <option value="">Seleccione el método de pago</option>
+          <option value="Tarjeta">Crédito/Débito</option>
+          <option value="Banco">Cuenta bancaria</option>
+          <option value="Nequi">Nequi</option>
+          <option value="daviplata">Daviplata</option>
+        </select>
+      </div>
+      <button type="submit" id="send-button" class="btn btn-warning text-dark rounded-pill me-2 w-100"
+        onmouseover="this.classList.add('btn-dark')" onmouseout="this.classList.remove('btn-dark')">
+        ENVIAR DONACIÓN
+      </button>
+    </form>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3">
+    <p>© 2025 Iglesia Presbiteriana de Colombia</p>
+    <div>
+      <p>Síguenos en nuestras redes sociales</p>
+      <a href="https://www.youtube.com/@ipolivos" class="me-2">
+        <img src="../img/youtube.png" alt="YouTube" style="height: 30px" />
+      </a>
+      <a href="https://www.facebook.com/Churcholivos" class="me-2">
+        <img src="../img/facebook.png" alt="Facebook" style="height: 30px" />
+      </a>
+      <a href="https://www.instagram.com/ipolivos/?utm_medium=copy_link" class="me-2">
+        <img src="../img/instagram.png" alt="Instagram" style="height: 30px" />
+      </a>
+      <a href="https://www.tiktok.com/@ipebenezerolivos">
+        <img src="../img/tik_tok.png" alt="TikTok" style="height: 30px" />
+      </a>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/donacion.js"></script>
+</body>
+
+</html>
