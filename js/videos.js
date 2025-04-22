@@ -182,7 +182,7 @@ const extractYouTubeID = (url) => {
 };
 
 const getVideos = () => {
-  fetch("http://127.0.0.1:8000/videos", {
+  fetch("https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/videos", {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -226,7 +226,7 @@ if (localStorage.getItem("rol") == "Administrador") {
       // Construir la URL de la imagen (thumbnail) de YouTube
       const thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-      fetch("http://127.0.0.1:8000/videos", {
+      fetch("https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/videos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

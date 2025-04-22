@@ -1,4 +1,4 @@
-fetch("http://127.0.0.1:8000/peticiones", {
+fetch("https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/peticiones", {
   method: "GET",
   headers: {
     Accept: "application/json",

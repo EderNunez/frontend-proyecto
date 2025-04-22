@@ -1,4 +1,4 @@
-const baseUrl = "http://127.0.0.1:8000/miembros";
+const baseUrl = "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/miembros";
 let selectedCulto = "";
 let currentRecords = [];
 
@@ -31,7 +31,9 @@ const fetchRecords = () => {
     .then((response) => response.json())
     .then((result) => {
       currentRecords = result.data;
-      handleTableData(currentRecords.filter((record) => record.Culto === selectedCulto));
+      handleTableData(
+        currentRecords.filter((record) => record.Culto === selectedCulto)
+      );
     })
     .catch((error) => console.log("error", error));
 };
@@ -86,7 +88,8 @@ const addRecord = () => {
     .then((res) => {
       alert(res["mensaje"]);
       console.log(res);
-    }).catch((error) => console.log("error", error));
+    })
+    .catch((error) => console.log("error", error));
 };
 
 // Al cargar la página, se asigna el listener para seleccionar culto
