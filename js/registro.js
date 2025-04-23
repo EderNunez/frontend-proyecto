@@ -4,20 +4,23 @@ const registrar = () => {
   const password = document.getElementById("password").value;
   const passwordConfirm = document.getElementById("password-confirm").value;
 
-  fetch("https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/auth/registro", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      Usuario: username,
-      Correo: email,
-      Contraseña: password,
-      ConfirmarContraseña: passwordConfirm,
-    }),
-  })
+  fetch(
+    "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/auth/registro",
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        Usuario: username,
+        Correo: email,
+        Contraseña: password,
+        ConfirmarContraseña: passwordConfirm,
+      }),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       alert(data["mensaje"]);
@@ -25,6 +28,9 @@ const registrar = () => {
     })
     .catch((error) => {
       console.error(error);
-      alert("Error al registrar el usuario");
+      // Mostrar modal
+      document.getElementById("errorModalMessage").textContent =
+        "Error al registrar el usuario";
+      new bootstrap.Modal(document.getElementById("errorModal")).show();
     });
 };
