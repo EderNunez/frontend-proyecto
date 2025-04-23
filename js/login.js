@@ -29,7 +29,10 @@ const login = () => {
       window.location.href = "../index.html";
     })
     .catch((error) => {
-      alert(error.detail);
-      console.error(error);
+      console.error("Error:", error);
+      const errorModal = new bootstrap.Modal(
+        document.getElementById("errorModal")
+      );
+      errorModal.show();
     });
 };
