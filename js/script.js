@@ -48,10 +48,10 @@ const add_button_logout = () => {
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("rol");
-  if (window.location.href == "../html/login.html") {
-    window.location.href = "../html/login.html";
+  if (window.location.href == "html/login.html") {
+    window.location.href = "html/login.html";
   } else {
-    window.location.href = "../html/login.html";
+    window.location.href = "html/login.html";
   }
 };
 

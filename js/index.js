@@ -4,7 +4,7 @@ const rol = localStorage.getItem("rol");
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("rol");
-  window.location.href = "../html/login.html";
+  window.location.href = "html/login.html";
 };
 const add_button_logout = () => {
   const usernameP = document.createElement("h4");
@@ -59,7 +59,7 @@ const add_menu_asistence = (li, nav) => {
   nav.appendChild(li);
 
   const donaciones = document.getElementById("donaciones-link");
-  donaciones.setAttribute("href", "../html/donacion-admin.html");
+  donaciones.setAttribute("href", "html/donacion-admin.html");
 }
 
 if (username != null) {
@@ -71,7 +71,7 @@ if (username != null) {
     li.setAttribute("class", "nav-item");
     add_menu_asistence(li, nav);
     const donaciones = document.getElementById("peticiones-link");
-    donaciones.setAttribute("href", "../html/peticiones-admin.html");
+    donaciones.setAttribute("href", "html/peticiones-admin.html");
   }  
 } else {
   add_button_login();
