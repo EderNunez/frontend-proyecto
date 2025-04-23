@@ -32,7 +32,7 @@ const add_button_login = () => {
   const button2 = document.createElement("button");
   button2.setAttribute("type", "button");
   button2.setAttribute("class", "login");
-  button2.setAttribute("onclick", "location.href='html/Login.html'");
+  button2.setAttribute("onclick", "location.href='html/login.html'");
   button2.setAttribute("class", "btn btn-warning text-dark rounded-pill me-2");
   button2.setAttribute("onmouseover", "this.classList.add('btn-light')");
   button2.setAttribute("onmouseout", "this.classList.remove('btn-light')");
