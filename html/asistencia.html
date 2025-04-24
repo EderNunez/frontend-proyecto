@@ -11,157 +11,242 @@
     />
   </head>
   <body>
-    <div class="container my-4">
-      <h1 class="text-center mb-4">Gestión de Cultos</h1>
-      <!-- Selección de culto -->
-      <div class="mb-4">
-        <label for="seleccionarCulto" class="form-label"
-          >Selecciona el culto:</label
-        >
-        <select id="seleccionarCulto" class="form-select">
-          <option value="">-- Selecciona --</option>
-          <option value="martes_culto_dama">Martes - Culto de Dama</option>
-          <option value="miercoles_evangelisticos">
-            Miércoles - Cultos Evangelísticos
-          </option>
-          <option value="viernes_oracion">Viernes - Culto de Oración</option>
-          <option value="sabado_ayuno">Sábado - Ayuno</option>
-          <option value="sabado_juvenil">Sábado - Culto Juvenil</option>
-          <option value="domingo_escuelas">
-            Domingo - Escuelas Dominicales
-          </option>
-        </select>
-      </div>
-      <!-- Opciones disponibles según el culto seleccionado (inicialmente ocultas) -->
-      <div id="opcionesCulto" style="display: none" class="mb-4"></div>
-      <!-- Sección de Asistencia (Formulario y tabla) -->
-      <div id="seccionAsistencia" style="display: none">
-        <h2>Registro de Asistencia</h2>
-        <form id="attendanceForm" class="mb-4">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="nombre" class="form-label">Nombre:</label>
-              <input type="text" id="nombre" class="form-control" />
-            </div>
-            <div class="col-md-6">
-              <label for="apellido" class="form-label">Apellido:</label>
-              <input type="text" id="apellido" class="form-control" />
-            </div>
-            <div class="col-md-6">
-              <label for="telefono" class="form-label">Teléfono:</label>
-              <input type="tel" id="telefono" class="form-control" />
-            </div>
-            <div class="col-md-6">
-              <label for="barrio" class="form-label">Barrio:</label>
-              <input type="text" id="barrio" class="form-control" />
-            </div>
-            <div class="col-md-6">
-              <label for="direccion" class="form-label">Dirección:</label>
-              <input type="text" id="direccion" class="form-control" />
-            </div>
-            <div class="col-md-6">
-              <label for="cargo" class="form-label">Cargo:</label>
-              <select id="cargo" class="form-select">
-                <option value="Pastor">Pastor</option>
-                <option value="Anciano">Anciano</option>
-                <option value="Diácono">Diácono</option>
-                <option value="Líder">Líder</option>
-                <option value="Miembro">Miembro</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="bautizado" class="form-label">Bautizado:</label>
-              <select id="bautizado" class="form-select">
-                <option value="True">Sí</option>
-                <option value="False">No</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="fecha" class="form-label">Fecha:</label>
-              <input type="date" id="fecha" class="form-control" />
-            </div>
-          </div>
-          <div class="mt-3">
-            <button type="button" class="btn btn-primary" onclick="addRecord()">
-              Agregar
-            </button>
-            <button type="reset" class="btn btn-secondary">Limpiar</button>
-          </div>
-        </form>
-        <table class="table table-bordered">
-          <thead class="table-light">
-            <tr>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Teléfono</th>
-              <th>Barrio</th>
-              <th>Dirección</th>
-              <th>Cargo</th>
-              <th>Bautizado</th>
-              <th>Fecha</th>
-              <th>Culto</th>
-            </tr>
-          </thead>
-          <tbody id="tablaCuerpo">
-            <!-- Se llenará dinámicamente -->
-          </tbody>
-        </table>
-      </div>
-      <!-- Sección para Agregar Miembro (podría reutilizar el formulario de asistencia) -->
-      <div id="seccionAgregar" style="display: none">
-        <h2>Agregar Miembro</h2>
-        <p>
-          Utiliza el formulario de asistencia para agregar un nuevo miembro.
-        </p>
-        <button class="btn btn-secondary" onclick="mostrarAsistencia()">
-          Volver a Asistencia
-        </button>
-      </div>
-      <!-- Sección para Eliminar Miembro (se usará la misma tabla con la opción de eliminar) -->
-      <div id="seccionEliminar" style="display: none">
-        <h2>Eliminar Miembro</h2>
-        <p>Utiliza la tabla de registros para eliminar un miembro.</p>
-        <button class="btn btn-secondary" onclick="mostrarAsistencia()">
-          Volver a Asistencia
-        </button>
-      </div>
-    </div>
-    <!-- Modal de notificación -->
-    <div
-      class="modal fade"
-      id="notificationModal"
-      tabindex="-1"
-      aria-labelledby="notificationModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="notificationModalLabel">
-              Notificación
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body" id="notificationMessage">
-            <!-- Mensaje dinámico -->
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
+    <header class="bg-dark text-white py-3">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <img
+            src="img/logo.webp"
+            alt=""
+            width="50"
+            height="50"
+            class="me-2 rounded-circle"
+          />
+          <h4 class="mb-0">WORSHBY</h4>
+        </div>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-white fw-bold fs-5" href="#">INICIO</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white fw-bold fs-5"
+              href="html/videos.html"
+              onmouseover="this.classList.replace('text-white', 'text-warning')"
+              onmouseout="this.classList.replace('text-warning', 'text-white')"
+              >VIDEOS</a
             >
-              Aceptar
-            </button>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white fw-bold fs-5"
+              id="donaciones-link"
+              href="html/donaciones.html"
+              onmouseover="this.classList.replace('text-white', 'text-warning')"
+              onmouseout="this.classList.replace('text-warning', 'text-white')"
+              >DONACIONES</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white fw-bold fs-5"
+              href="html/Ubicacion.html"
+              onmouseover="this.classList.replace('text-white', 'text-warning')"
+              onmouseout="this.classList.replace('text-warning', 'text-white')"
+              >UBICACIÓN</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-white fw-bold fs-5"
+              id="peticiones-link"
+              href="html/peticiones.html"
+              onmouseover="this.classList.replace('text-white', 'text-warning')"
+              onmouseout="this.classList.replace('text-warning', 'text-white')"
+              >PETICIONES</a
+            >
+          </li>
+        </ul>
+        <div class="buttons" id="name-user"></div>
+      </div>
+    </header>
+    <main>
+      <div class="container my-4">
+        <h1 class="text-center mb-4">Gestión de Cultos</h1>
+        <!-- Selección de culto -->
+        <div class="mb-4">
+          <label for="seleccionarCulto" class="form-label"
+            >Selecciona el culto:</label
+          >
+          <select id="seleccionarCulto" class="form-select">
+            <option value="">-- Selecciona --</option>
+            <option value="martes_culto_dama">Martes - Culto de Dama</option>
+            <option value="miercoles_evangelisticos">
+              Miércoles - Cultos Evangelísticos
+            </option>
+            <option value="viernes_oracion">Viernes - Culto de Oración</option>
+            <option value="sabado_ayuno">Sábado - Ayuno</option>
+            <option value="sabado_juvenil">Sábado - Culto Juvenil</option>
+            <option value="domingo_escuelas">
+              Domingo - Escuelas Dominicales
+            </option>
+          </select>
+        </div>
+        <!-- Opciones disponibles según el culto seleccionado (inicialmente ocultas) -->
+        <div id="opcionesCulto" style="display: none" class="mb-4"></div>
+        <!-- Sección de Asistencia (Formulario y tabla) -->
+        <div id="seccionAsistencia" style="display: none">
+          <h2>Registro de Asistencia</h2>
+          <form id="attendanceForm" class="mb-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="apellido" class="form-label">Apellido:</label>
+                <input type="text" id="apellido" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input type="tel" id="telefono" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="barrio" class="form-label">Barrio:</label>
+                <input type="text" id="barrio" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="direccion" class="form-label">Dirección:</label>
+                <input type="text" id="direccion" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="cargo" class="form-label">Cargo:</label>
+                <select id="cargo" class="form-select">
+                  <option value="Pastor">Pastor</option>
+                  <option value="Anciano">Anciano</option>
+                  <option value="Diácono">Diácono</option>
+                  <option value="Líder">Líder</option>
+                  <option value="Miembro">Miembro</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="bautizado" class="form-label">Bautizado:</label>
+                <select id="bautizado" class="form-select">
+                  <option value="True">Sí</option>
+                  <option value="False">No</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="fecha" class="form-label">Fecha:</label>
+                <input type="date" id="fecha" class="form-control" />
+              </div>
+            </div>
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="addRecord()"
+              >
+                Agregar
+              </button>
+              <button type="reset" class="btn btn-secondary">Limpiar</button>
+            </div>
+          </form>
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Barrio</th>
+                <th>Dirección</th>
+                <th>Cargo</th>
+                <th>Bautizado</th>
+                <th>Fecha</th>
+                <th>Culto</th>
+              </tr>
+            </thead>
+            <tbody id="tablaCuerpo">
+              <!-- Se llenará dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <!-- Sección para Agregar Miembro (podría reutilizar el formulario de asistencia) -->
+        <div id="seccionAgregar" style="display: none">
+          <h2>Agregar Miembro</h2>
+          <p>
+            Utiliza el formulario de asistencia para agregar un nuevo miembro.
+          </p>
+          <button class="btn btn-secondary" onclick="mostrarAsistencia()">
+            Volver a Asistencia
+          </button>
+        </div>
+        <!-- Sección para Eliminar Miembro (se usará la misma tabla con la opción de eliminar) -->
+        <div id="seccionEliminar" style="display: none">
+          <h2>Eliminar Miembro</h2>
+          <p>Utiliza la tabla de registros para eliminar un miembro.</p>
+          <button class="btn btn-secondary" onclick="mostrarAsistencia()">
+            Volver a Asistencia
+          </button>
+        </div>
+      </div>
+      <!-- Modal de notificación -->
+      <div
+        class="modal fade"
+        id="notificationModal"
+        tabindex="-1"
+        aria-labelledby="notificationModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="notificationModalLabel">
+                Notificación
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="notificationMessage">
+              <!-- Mensaje dinámico -->
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Aceptar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+      <p>© 2025 Iglesia Presbiteriana de Colombia</p>
+      <div>
+        <p>Síguenos en nuestras redes sociales</p>
+        <a href="https://www.youtube.com/@ipolivos" class="me-2">
+          <img src="./img/youtube.png" alt="YouTube" style="height: 30px" />
+        </a>
+        <a href="https://www.facebook.com/Churcholivos" class="me-2">
+          <img src="./img/facebook.png" alt="Facebook" style="height: 30px" />
+        </a>
+        <a
+          href="https://www.instagram.com/ipolivos/?utm_medium=copy_link"
+          class="me-2"
+        >
+          <img src="./img/instagram.png" alt="Instagram" style="height: 30px" />
+        </a>
+        <a href="https://www.tiktok.com/@ipebenezerolivos">
+          <img src="./img/tik_tok.png" alt="TikTok" style="height: 30px" />
+        </a>
+      </div>
+    </footer>
     <!-- Script JS personalizado -->
     <script src="../js/asistencia.js"></script>
     <!-- Bootstrap JS Bundle -->
