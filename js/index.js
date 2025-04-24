@@ -53,7 +53,7 @@ const updateProfile = () => {
       },
       body: JSON.stringify({
         Usuario: username,
-        Contraseña: newPassword || null,
+        Contraseña: newPassword,
         Correo: newEmail,
       }),
     }
