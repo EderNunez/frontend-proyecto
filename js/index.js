@@ -11,8 +11,6 @@ const add_button_logout = () => {
   const usernameP = document.createElement("h4");
   usernameP.textContent = username;
 
-  const rolP = document.createElement("p");
-  rolP.textContent = rol;
 
   const button = document.createElement("button");
   button.setAttribute("type", "button");
@@ -25,7 +23,6 @@ const add_button_logout = () => {
 
   const nameUser = document.getElementById("name-user");
   nameUser.appendChild(usernameP);
-  nameUser.appendChild(rolP);
   nameUser.appendChild(button);
 };
 

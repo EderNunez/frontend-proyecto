@@ -48,23 +48,20 @@ const add_menu_asistencia = (li, nav) => {
 
 const add_button_logout = () => {
   const usernameP = document.createElement("h4");
-  const rolP = document.createElement("p");
   const button = document.createElement("button");
 
   usernameP.textContent = username;
 
-  rolP.textContent = rol;
   button.setAttribute("type", "button");
   button.setAttribute("onclick", "logout()");
   button.setAttribute("class", "btn btn-warning text-dark rounded-pill me-2");
+  
   button.setAttribute("onmouseover", "this.classList.add('btn-light')");
   button.setAttribute("onmouseout", "this.classList.remove('btn-light')");
-
   button.textContent = "Cerrar sesión";
 
   const nameUser = document.getElementById("name-user");
   nameUser.appendChild(usernameP);
-  nameUser.appendChild(rolP);
   nameUser.appendChild(button);
 };
 
