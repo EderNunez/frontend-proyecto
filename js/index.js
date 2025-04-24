@@ -11,7 +11,6 @@ const add_button_logout = () => {
   const usernameP = document.createElement("h4");
   usernameP.textContent = username;
 
-
   const button = document.createElement("button");
   button.setAttribute("type", "button");
   button.setAttribute("class", "logout");
@@ -62,7 +61,7 @@ const add_profile_button = () => {
   profileButton.onmouseout = () => profileButton.classList.remove("btn-light");
 
   const nameUser = document.getElementById("name-user");
-  nameUser.insertBefore(profileButton, nameUser.children[2]);
+  nameUser.insertBefore(profileButton, nameUser.children[1]);
 };
 
 const add_menu_asistence = (li, nav) => {
