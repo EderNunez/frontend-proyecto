@@ -1,5 +1,27 @@
 const username = localStorage.getItem("user");
 const rol = localStorage.getItem("rol");
+const email = localStorage.getItem("email");
+
+const showProfile = () => {
+  document.getElementById("profileUsername").textContent = username || "-";
+  document.getElementById("profileRol").textContent = rol || "-";
+  document.getElementById("profileEmail").textContent =
+    email || "No disponible";
+  new bootstrap.Modal(document.getElementById("profileModal")).show();
+};
+
+const add_profile_button = () => {
+  const profileButton = document.createElement("button");
+  profileButton.textContent = "Ver Perfil";
+  profileButton.className = "btn btn-info text-dark rounded-pill me-2";
+  profileButton.onclick = showProfile;
+
+  // Efectos hover
+  profileButton.onmouseover = () => profileButton.classList.add("btn-light");
+  profileButton.onmouseout = () => profileButton.classList.remove("btn-light");
+
+  document.getElementById("name-user").prepend(profileButton);
+};
 
 const add_menu_asistencia = (li, nav) => {
   const a = document.createElement("a");
@@ -48,15 +70,13 @@ const add_button_logout = () => {
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("rol");
-  if (window.location.href == "html/login.html") {
-    window.location.href = "html/login.html";
-  } else {
-    window.location.href = "html/login.html";
-  }
+  localStorage.removeItem("email"); // Nuevo: eliminar email
+  window.location.href = "login.html"; // Redirección simplificada
 };
 
 if (username != null) {
   add_button_logout();
+  add_profile_button();
   if (rol == "Administrador") {
     const nav = document.getElementsByClassName("nav")[0];
     const li = document.createElement("li");

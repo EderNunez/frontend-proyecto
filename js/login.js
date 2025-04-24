@@ -19,13 +19,11 @@ const login = () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      const username = data.usuario.Usuario;
-      const rol = data.usuario.Rol;
-      const id = data.usuario.ID_Usuario;
       console.log(data.mensaje);
-      localStorage.setItem("user", username);
-      localStorage.setItem("rol", rol);
-      localStorage.setItem("userId", id);
+      localStorage.setItem("user", data.usuario.Usuario);
+      localStorage.setItem("rol", data.usuario.Rol);
+      localStorage.setItem("userId", data.usuario.ID_Usuario);
+      localStorage.setItem("email", data.usuario.Correo);
       window.location.href = "../index.html";
     })
     .catch((error) => {

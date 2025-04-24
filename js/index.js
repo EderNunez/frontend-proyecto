@@ -4,6 +4,7 @@ const rol = localStorage.getItem("rol");
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("rol");
+  localStorage.removeItem("email");
   window.location.href = "html/login.html";
 };
 const add_button_logout = () => {
@@ -40,6 +41,32 @@ const add_button_login = () => {
   document.getElementById("name-user").appendChild(button2);
 };
 
+const showProfile = () => {
+  document.getElementById("profileUsername").textContent =
+    localStorage.getItem("user") || "-";
+  document.getElementById("profileRol").textContent =
+    localStorage.getItem("rol") || "-";
+  document.getElementById("profileEmail").textContent =
+    localStorage.getItem("email") || "No disponible";
+  const profileModal = new bootstrap.Modal(
+    document.getElementById("profileModal")
+  );
+  profileModal.show();
+};
+
+const add_profile_button = () => {
+  const profileButton = document.createElement("button");
+  profileButton.textContent = "Ver Perfil";
+  profileButton.className = "btn btn-info text-dark rounded-pill me-2";
+  profileButton.onclick = showProfile;
+
+  // Efectos hover
+  profileButton.onmouseover = () => profileButton.classList.add("btn-light");
+  profileButton.onmouseout = () => profileButton.classList.remove("btn-light");
+
+  document.getElementById("name-user").prepend(profileButton);
+};
+
 const add_menu_asistence = (li, nav) => {
   const a = document.createElement("a");
   a.textContent = "ASISTENCIA";
@@ -60,10 +87,11 @@ const add_menu_asistence = (li, nav) => {
 
   const donaciones = document.getElementById("donaciones-link");
   donaciones.setAttribute("href", "html/donacion-admin.html");
-}
+};
 
 if (username != null) {
   add_button_logout();
+  add_profile_button();
 
   if (rol == "Administrador") {
     const nav = document.getElementsByClassName("nav")[0];
@@ -72,7 +100,7 @@ if (username != null) {
     add_menu_asistence(li, nav);
     const donaciones = document.getElementById("peticiones-link");
     donaciones.setAttribute("href", "html/peticiones-admin.html");
-  }  
+  }
 } else {
   add_button_login();
-}  
+}

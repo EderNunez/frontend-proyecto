@@ -23,8 +23,14 @@ const registrar = () => {
   )
     .then((response) => response.json())
     .then((data) => {
-      alert(data["mensaje"]);
-      window.location.href = "login.html";
+      document.getElementById("successModalMessage").textContent =
+        "¡Registro completado!";
+      new bootstrap.Modal(document.getElementById("successModal")).show();
+
+      // Redirigir después de 3 segundos
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 3000);
     })
     .catch((error) => {
       console.error(error);
