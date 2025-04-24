@@ -1,3 +1,14 @@
+const showVideoAlert = (message, isError = false) => {
+  const modal = new bootstrap.Modal(document.getElementById("videoModal"));
+  const modalTitle = document.getElementById("videoModalLabel");
+  const modalBody = document.getElementById("videoMessage");
+
+  modalTitle.textContent = isError ? "¡Error!" : "¡Éxito!";
+  modalTitle.classList.toggle("text-danger", isError);
+  modalBody.textContent = message;
+  modal.show();
+};
+
 const create_card_container_videos = (
   thumbnailURL,
   name,
@@ -182,12 +193,15 @@ const extractYouTubeID = (url) => {
 };
 
 const getVideos = () => {
-  fetch("https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/videos", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  })
+  fetch(
+    "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/videos",
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  )
     .then((data) => data.json())
     .then((data) => {
       const result = data.resultado;
@@ -195,10 +209,19 @@ const getVideos = () => {
         const videoId = extractYouTubeID(video.Enlace);
         const thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
         const videoContainer = document.getElementById("videoContainer");
-        create_card_container_videos(thumbnailURL, video.Título,video.Fecha_Publicacion, video.Enlace, videoContainer);
+        create_card_container_videos(
+          thumbnailURL,
+          video.Título,
+          video.Fecha_Publicacion,
+          video.Enlace,
+          videoContainer
+        );
       });
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      showVideoAlert("Error al cargar los videos", true);
+      console.error(error);
+    });
 };
 
 if (localStorage.getItem("rol") == "Administrador") {
@@ -214,36 +237,61 @@ if (localStorage.getItem("rol") == "Administrador") {
       const name = document.getElementById("videoName").value;
       const link = document.getElementById("videoLink").value;
       const date = document.getElementById("videoDate").value;
-      console.log(name, link, date);
 
       // Extraer el ID del video usando una expresión regular robusta
       const videoId = extractYouTubeID(link);
       if (!videoId) {
-        alert("Formato de enlace no reconocido.");
+        showVideoAlert(
+          "Formato de enlace no reconocido. Ejemplo válido: https://www.youtube.com/watch?v=XXXX",
+          true
+        );
         return;
       }
 
       // Construir la URL de la imagen (thumbnail) de YouTube
       const thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-      fetch("https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/videos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          Título: name,
-          Enlace: link,
-          Fecha_Publicacion: new Date(date).toISOString(),
-          x_user_id: parseInt(localStorage.getItem("userId")),
-        }),
-      })
-        .then((data) => data.json())
-        .then((data) => {
-          alert(data["mensaje"]);
+      fetch(
+        "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/videos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            Título: name,
+            Enlace: link,
+            Fecha_Publicacion: new Date(date).toISOString(),
+            x_user_id: parseInt(localStorage.getItem("userId")),
+          }),
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((err) => {
+              throw err;
+            });
+          }
+          return response.json();
         })
-        .catch((error) => console.error(error));
+        .then((data) => {
+          showVideoAlert(data.mensaje || "Video agregado exitosamente");
+          // Crear la tarjeta y limpiar el formulario
+          create_card_container_videos(
+            thumbnailURL,
+            name,
+            date,
+            link,
+            videoContainer
+          );
+          videoForm.reset();
+        })
+        .catch((error) => {
+          const errorMsg = error.detail || "Error al procesar la solicitud";
+          showVideoAlert(errorMsg, true);
+          console.error("Error:", error);
+        });
 
       // Crear la tarjeta (card) para el video
       create_card_container_videos(
