@@ -64,7 +64,8 @@ const add_profile_button = () => {
   profileButton.onmouseover = () => profileButton.classList.add("btn-light");
   profileButton.onmouseout = () => profileButton.classList.remove("btn-light");
 
-  document.getElementById("name-user").prepend(profileButton);
+  const nameUser = document.getElementById("name-user");
+  nameUser.insertBefore(profileButton, nameUser.children[2]);
 };
 
 const add_menu_asistence = (li, nav) => {
