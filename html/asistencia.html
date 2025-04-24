@@ -33,9 +33,7 @@
         </select>
       </div>
       <!-- Opciones disponibles según el culto seleccionado (inicialmente ocultas) -->
-      <div id="opcionesCulto" style="display: none" class="mb-4">
-        
-      </div>
+      <div id="opcionesCulto" style="display: none" class="mb-4"></div>
       <!-- Sección de Asistencia (Formulario y tabla) -->
       <div id="seccionAsistencia" style="display: none">
         <h2>Registro de Asistencia</h2>
@@ -126,6 +124,42 @@
         <button class="btn btn-secondary" onclick="mostrarAsistencia()">
           Volver a Asistencia
         </button>
+      </div>
+    </div>
+    <!-- Modal de notificación -->
+    <div
+      class="modal fade"
+      id="notificationModal"
+      tabindex="-1"
+      aria-labelledby="notificationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="notificationModalLabel">
+              Notificación
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="notificationMessage">
+            <!-- Mensaje dinámico -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Script JS personalizado -->

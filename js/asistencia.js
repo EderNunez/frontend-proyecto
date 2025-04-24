@@ -35,7 +35,10 @@ const fetchRecords = () => {
         currentRecords.filter((record) => record.Culto === selectedCulto)
       );
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => {
+      showNotification("Error al cargar los registros", true);
+      console.error("Error:", error);
+    });
 };
 
 const handleTableData = (records) => {
@@ -55,6 +58,18 @@ const handleTableData = (records) => {
     document.getElementById("tablaCuerpo").appendChild(row);
   });
 };
+
+const showNotification = (message, isError = false) => {
+  const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+  const modalHeader = document.getElementById('notificationModalLabel');
+  const modalBody = document.getElementById('notificationMessage');
+  
+  modalHeader.textContent = isError ? '¡Error!' : '¡Éxito!';
+  modalHeader.classList.toggle('text-danger', isError);
+  modalBody.textContent = message;
+  modal.show();
+};
+
 
 const addRecord = () => {
   const culto = document.getElementById("seleccionarCulto").value;
@@ -82,14 +97,19 @@ const addRecord = () => {
       Bautizado: bautizado,
       Fecha: new Date(fecha).toISOString(),
       Culto: culto,
+      ID_Usuario: parseInt(localStorage.getItem("userId")),
     }),
   })
     .then((resp) => resp.json())
     .then((res) => {
-      alert(res["mensaje"]);
-      console.log(res);
+      showNotification(res.mensaje);
+      fetchRecords(); // Actualizar tabla después de éxito
+      document.getElementById("attendanceForm").reset();
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => {
+      showNotification("Error al procesar la solicitud", true);
+      console.error("Error:", error);
+    });
 };
 
 // Al cargar la página, se asigna el listener para seleccionar culto
