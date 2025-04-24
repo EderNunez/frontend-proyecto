@@ -2,13 +2,75 @@ const username = localStorage.getItem("user");
 const rol = localStorage.getItem("rol");
 const email = localStorage.getItem("email");
 
-const showProfile = () => {
-  document.getElementById("profileUsername").textContent = username || "-";
-  document.getElementById("profileRol").textContent = rol || "-";
-  document.getElementById("profileEmail").textContent =
-    email || "No disponible";
-  new bootstrap.Modal(document.getElementById("profileModal")).show();
+let isEditing = false;
+
+const toggleEditMode = () => {
+  isEditing = !isEditing;
+  document.getElementById("profileEmail").disabled = !isEditing;
+  document.getElementById("profilePassword").disabled = !isEditing;
+
+  document.getElementById("editProfileBtn").style.display = isEditing
+    ? "none"
+    : "inline-block";
+  document.getElementById("saveProfileBtn").style.display = isEditing
+    ? "inline-block"
+    : "none";
 };
+
+const showNotification = (message, type) => {
+  const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+  const modalBody = document.getElementById('notificationMessage');
+  const modalTitle = document.getElementById('notificationModalLabel');
+  
+  modalTitle.textContent = type === 'success' ? '¡Éxito!' : '¡Error!';
+  modalTitle.className = `modal-title text-${type === 'success' ? 'success' : 'danger'}`;
+  modalBody.textContent = message;
+  modal.show();
+};
+
+const updateProfile = () => {
+  const newEmail = document.getElementById('profileEmail').value;
+  const newPassword = document.getElementById('profilePassword').value;
+
+  fetch('https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/auth/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      Usuario: username,
+      Contraseña: newPassword || undefined,
+      Correo: newEmail
+    })
+  })
+  .then(response => {
+    if (!response.ok) return response.json().then(err => { throw err; });
+    return response.json();
+  })
+  .then(data => {
+    localStorage.setItem('email', newEmail);
+    showNotification('Perfil actualizado correctamente', 'success');
+    toggleEditMode();
+  })
+  .catch(error => {
+    showNotification(error.detail || 'Error al actualizar el perfil', 'error');
+    console.error('Error:', error);
+  });
+};
+
+const showProfile = () => {
+  document.getElementById("profileUsername").value = username || "-";
+  document.getElementById("profileEmail").value = email || "No disponible";
+  document.getElementById("profilePassword").value = "";
+  
+  new bootstrap.Modal(document.getElementById('profileModal')).show();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('editProfileBtn')?.addEventListener('click', toggleEditMode);
+  document.getElementById('saveProfileBtn')?.addEventListener('click', updateProfile);
+});
+
 
 const add_profile_button = () => {
   const profileButton = document.createElement("button");
@@ -55,7 +117,7 @@ const add_button_logout = () => {
   button.setAttribute("type", "button");
   button.setAttribute("onclick", "logout()");
   button.setAttribute("class", "btn btn-warning text-dark rounded-pill me-2");
-  
+
   button.setAttribute("onmouseover", "this.classList.add('btn-light')");
   button.setAttribute("onmouseout", "this.classList.remove('btn-light')");
   button.textContent = "Cerrar sesión";
