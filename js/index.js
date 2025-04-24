@@ -43,6 +43,7 @@ const updateProfile = () => {
   const newEmail = document.getElementById("profileEmail").value;
   const newPassword = document.getElementById("profilePassword").value;
   const username = localStorage.getItem("user");
+  const id = localStorage.getItem("userId");
 
   fetch(
     "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/auth/update",
@@ -52,6 +53,7 @@ const updateProfile = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        Id: parseInt(id),
         Usuario: username,
         Contraseña: newPassword,
         Correo: newEmail,
