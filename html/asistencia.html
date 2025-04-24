@@ -35,7 +35,11 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link text-white fw-bold fs-5" href="../html/videos.html">VIDEOS</a>
+            <a
+              class="nav-link text-white fw-bold fs-5"
+              href="../html/videos.html"
+              >VIDEOS</a
+            >
           </li>
 
           <li class="nav-item">
@@ -251,6 +255,52 @@
         </a>
       </div>
     </footer>
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="profileModalLabel">
+              Perfil de Usuario
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Nombre de usuario:</label>
+              <p id="profileUsername" class="mb-0">-</p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Rol:</label>
+              <p id="profileRol" class="mb-0">-</p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Correo electrónico:</label>
+              <p id="profileEmail" class="mb-0">-</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Script JS personalizado -->
     <script src="../js/asistencia.js"></script>
     <script src="../js/script.js"></script>
