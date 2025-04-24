@@ -1,3 +1,13 @@
+const showNotification = (message, isError = false) => {
+  const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+  const modalHeader = document.getElementById('notificationModalLabel');
+  const modalBody = document.getElementById('notificationMessage');
+  
+  modalHeader.textContent = isError ? '¡Error!' : '¡Éxito!';
+  modalHeader.classList.toggle('text-danger', isError);
+  modalBody.textContent = message;
+  modal.show();
+};
 const baseUrl = "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/miembros";
 let selectedCulto = "";
 let currentRecords = [];
@@ -59,16 +69,6 @@ const handleTableData = (records) => {
   });
 };
 
-const showNotification = (message, isError = false) => {
-  const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
-  const modalHeader = document.getElementById('notificationModalLabel');
-  const modalBody = document.getElementById('notificationMessage');
-  
-  modalHeader.textContent = isError ? '¡Error!' : '¡Éxito!';
-  modalHeader.classList.toggle('text-danger', isError);
-  modalBody.textContent = message;
-  modal.show();
-};
 
 
 const addRecord = () => {
