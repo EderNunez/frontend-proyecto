@@ -1,5 +1,83 @@
 const username = localStorage.getItem("user");
 const rol = localStorage.getItem("rol");
+let isEditing = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+  document
+    .getElementById("editProfileBtn")
+    .addEventListener("click", toggleEditMode);
+  document
+    .getElementById("saveProfileBtn")
+    .addEventListener("click", updateProfile);
+});
+
+const toggleEditMode = () => {
+  isEditing = !isEditing;
+  document.getElementById("profileEmail").disabled = !isEditing;
+  document.getElementById("profilePassword").disabled = !isEditing;
+
+  document.getElementById("editProfileBtn").style.display = isEditing
+    ? "none"
+    : "inline-block";
+  document.getElementById("saveProfileBtn").style.display = isEditing
+    ? "inline-block"
+    : "none";
+};
+
+const showNotificationModal = (message, type) => {
+  const modal = new bootstrap.Modal(
+    document.getElementById("notificationModal")
+  );
+  const modalBody = document.getElementById("notificationMessage");
+  const modalTitle = document.getElementById("notificationModalLabel");
+
+  modalTitle.textContent = type === "success" ? "¡Éxito!" : "¡Error!";
+  modalTitle.className = `modal-title text-${
+    type === "success" ? "success" : "danger"
+  }`;
+  modalBody.textContent = message;
+  modal.show();
+};
+
+const updateProfile = () => {
+  const newEmail = document.getElementById("profileEmail").value;
+  const newPassword = document.getElementById("profilePassword").value;
+  const username = localStorage.getItem("user");
+
+  fetch(
+    "https://app-4b0c04ba-7831-4c7b-9652-558268a476a9.cleverapps.io/auth/update",
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Usuario: username,
+        Contraseña: newPassword || undefined,
+        Correo: newEmail,
+      }),
+    }
+  )
+    .then((response) => {
+      if (!response.ok)
+        return response.json().then((err) => {
+          throw err;
+        });
+      return response.json();
+    })
+    .then((data) => {
+      localStorage.setItem("email", newEmail);
+      showNotificationModal("Perfil actualizado correctamente", "success");
+      toggleEditMode();
+    })
+    .catch((error) => {
+      showNotificationModal(
+        error.detail || "Error al actualizar el perfil",
+        "error"
+      );
+      console.error("Error:", error);
+    });
+};
 
 const logout = () => {
   localStorage.removeItem("user");
@@ -38,12 +116,12 @@ const add_button_login = () => {
 };
 
 const showProfile = () => {
-  document.getElementById("profileUsername").textContent =
+  document.getElementById("profileUsername").value =
     localStorage.getItem("user") || "-";
-  document.getElementById("profileRol").textContent =
-    localStorage.getItem("rol") || "-";
-  document.getElementById("profileEmail").textContent =
+  document.getElementById("profileEmail").value =
     localStorage.getItem("email") || "No disponible";
+  document.getElementById("profilePassword").value = "";
+
   const profileModal = new bootstrap.Modal(
     document.getElementById("profileModal")
   );
